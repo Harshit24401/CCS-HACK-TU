@@ -2,15 +2,25 @@ import uvicorn
 from fastapi import FastAPI
 import joblib
 import tensorflow as tf
+import gdown
 from tensorflow import keras
 from fastapi import File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 import io
+import os
 
 app = FastAPI()
 #joblib_in = open()
-model = tf.keras.models.load_model('model.keras')
+model_url = "https://drive.google.com/uc?id=1BwSURNaLErTqtCK3cAn9t7UxKNybZmjA"
+model_path = "model.keras"
+
+# Download model if not already present
+if not os.path.exists(model_path):
+    gdown.download(model_url, model_path, quiet=False)
+
+# Load Model
+model = tf.keras.models.load_model(model_path)
 
 @app.get('/')
 def index():
