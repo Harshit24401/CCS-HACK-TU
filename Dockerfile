@@ -20,4 +20,4 @@ RUN rm -rf venv __pycache__
 EXPOSE 8000
 
 # Run the application (modify based on your app's entry point)
-CMD ["python", "app.py"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
